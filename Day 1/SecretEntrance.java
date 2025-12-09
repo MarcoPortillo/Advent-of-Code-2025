@@ -10,27 +10,27 @@ public class SecretEntrance {
             int dialNumber = 50;
             int passwordNumber = 0;
             for (String StringNumber : fileData) {
+                
                 int IntegerNumber = extractCurrentNumberAsInteger(StringNumber);
+                int wrapNumber = IntegerNumber % 100;
                 
                 if(StringNumber.startsWith("L")) {
-                    dialNumber = dialNumber - IntegerNumber;
-                    if(dialNumber < 0) {
-                        dialNumber = 100 - Math.abs(dialNumber);
+                    dialNumber = dialNumber - wrapNumber;
+                     if(dialNumber < 0) {
+                        dialNumber += 100;
                     }
-                    if(dialNumber == 0) {
-                        passwordNumber++;
-                    } 
                     
                 }
                 if(StringNumber.startsWith("R")) {
-                    dialNumber = dialNumber + IntegerNumber;
+                    dialNumber = dialNumber + wrapNumber;
                     if(dialNumber > 99) {
-                        dialNumber = 0 + (dialNumber - 100);
-                    }
-                    if(dialNumber == 0) {
-                        passwordNumber++;
+                        dialNumber -= 100;
                     }
                 }
+
+                if(dialNumber == 0) {
+                        passwordNumber++;
+                } 
             }
             System.out.println(passwordNumber);
         } else {
@@ -47,8 +47,8 @@ public class SecretEntrance {
         ArrayList<String> data = new ArrayList<String>();
         try (Scanner myReader = new Scanner(puzzleInput)) {
             while (myReader.hasNextLine()) {
-                 data.add(myReader.nextLine());
-                 System.out.println(data);
+                String line = myReader.nextLine();
+                data.add(line);
             }
         } catch (FileNotFoundException e) {
             System.out.println("File not found Exception");
