@@ -39,8 +39,7 @@ public class SecretEntrance {
                 passwordNumber += fullLoops;
 
 
-                System.out.println("dialNumber: " + dialNumber + " StringNumber: " + StringNumber + " fullLoops: " + fullLoops + " passwordNumber: " + passwordNumber);
-            }
+             }
             System.out.println(passwordNumber);
         } else {
             System.out.println("File has not data");
