@@ -14,36 +14,32 @@ public class SecretEntrance {
                 int integerNumber = extractCurrentNumberAsInteger(StringNumber);
                 int fullLoops = integerNumber / 100;
                 int wrapNumber = integerNumber % 100;
-
-                int crossing = fullLoops;
                 
                 if(StringNumber.startsWith("L")) {
+                    int start = dialNumber;
                     dialNumber = dialNumber - wrapNumber;
                      if(dialNumber < 0) {
+                        if(start != 0) passwordNumber++;
                         dialNumber += 100;
-                    }
-
-                    if(wrapNumber > dialNumber) {
-                        crossing++;
                     }
                     
                 }
                 if(StringNumber.startsWith("R")) {
                     dialNumber = dialNumber + wrapNumber;
                     if(dialNumber > 99) {
+                        if(dialNumber != 100) passwordNumber++;
                         dialNumber -= 100;
-                    }
-
-                    if(dialNumber + wrapNumber >= 100) {
-                        crossing++;
                     }
                 }
 
                 if(dialNumber == 0) {
                         passwordNumber++;
-                } 
+                }
+                
+                passwordNumber += fullLoops;
 
-                passwordNumber = passwordNumber + crossing;
+
+                System.out.println("dialNumber: " + dialNumber + " StringNumber: " + StringNumber + " fullLoops: " + fullLoops + " passwordNumber: " + passwordNumber);
             }
             System.out.println(passwordNumber);
         } else {
