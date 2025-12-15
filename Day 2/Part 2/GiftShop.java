@@ -14,10 +14,6 @@ public class GiftShop {
                         String number = String.valueOf(i);
                         int numberLength = number.length();
 
-                         if (numberLength % 2 != 0) {
-                            continue;
-                        }
-
 
                         int half = numberLength / 2; 
                         boolean isRepeated = false;
@@ -26,16 +22,14 @@ public class GiftShop {
                         while(index < half) { 
 
                             String offset = number.substring(0, index + 1);
+                            int offsetLength = offset.length();
 
-                            if (offset.length() != numberLength / 2) {
+                            if (numberLength % offsetLength != 0) {
                                 index++;
                                 continue;
                             }
 
-
-                            int offsetLength = offset.length();
                             int next = offsetLength;
-
                             boolean valid = true;
 
                                  while (next + offsetLength <= numberLength) {
@@ -62,7 +56,7 @@ public class GiftShop {
                         }
                     }
                 }   
-            System.out.println(totalInvalidadIDs);
+            System.out.println("total: " + totalInvalidadIDs);
         }
 
 
