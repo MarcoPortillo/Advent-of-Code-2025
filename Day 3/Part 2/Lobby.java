@@ -8,40 +8,34 @@ public class Lobby {
 
             public static void main(String[] args) {
                 List<String> banksList = readFile("LobbyInput.in");
-                int totalNumber = 0;
+                long totalNumber = 0;
 
-                //find first largest number
-                for(int i=0;i<banksList.size();i++) {
-                int largest = 0, largestIndex = 0, secondLargestIndex = 0;
-                int secondLargest = 0;
-                
-                        for(int j=0;j<banksList.get(i).length();j++) {
-                            if(j+1==banksList.get(i).length()) break;
-                            char number = banksList.get(i).charAt(j);//9
+                for (int i = 0; i< banksList.size(); i++) {
+                    StringBuilder result = new StringBuilder();
+                    int startIndex = 0;
+                    int remaining = 12;
+
+                    while (remaining > 0) {
+                        int largest = -1;
+                        int largestIndex = startIndex;
+
+                        int maxIndex = banksList.get(i).length() - remaining;
+
+                        for (int j = startIndex; j <= maxIndex; j++) {
+                            char number = banksList.get(i).charAt(j);
                             int currentNumber = number - '0';
-                            if(currentNumber > largest) {//9 > 8
+
+                            if (currentNumber > largest) {
                                 largest = currentNumber;
                                 largestIndex = j;
                             }
                         }
 
-                    //find second largest number after the first one
-                    for (int j=0;j<banksList.get(i).length();j++) {
-                        if(j==largestIndex) continue;
-                        char number = banksList.get(i).charAt(j);
-                        int currentNumber = number - '0';
-                        if(currentNumber > secondLargest && j > largestIndex) {
-                            secondLargest = currentNumber;
-                            secondLargestIndex = j;
-                        }
+                        result.append(largest);
+                        startIndex = largestIndex + 1;
+                        remaining--;
                     }
-                    int largestJoltage = 0;
-                    if(largestIndex > secondLargestIndex) {
-                        largestJoltage = secondLargest * 10 + largest;
-                    } else {
-                        largestJoltage = largest * 10 + secondLargest;
-                    }
-                totalNumber += largestJoltage;
+                totalNumber += Long.parseLong(result.toString());
                 }
                 System.out.println(totalNumber);
             }
