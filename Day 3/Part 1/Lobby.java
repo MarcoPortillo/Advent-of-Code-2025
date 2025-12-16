@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Lobby {
 
             public static void main(String[] args) {
-                List<String> banksList = readFile("LobbyInputTest.in");
+                List<String> banksList = readFile("LobbyInput.in");
                 int totalNumber = 0;
 
                 //find first largest number
@@ -16,9 +16,10 @@ public class Lobby {
                 int secondLargest = 0;
                 
                         for(int j=0;j<banksList.get(i).length();j++) {
-                            char number = banksList.get(i).charAt(j);
+                            if(j+1==banksList.get(i).length()) break;
+                            char number = banksList.get(i).charAt(j);//9
                             int currentNumber = number - '0';
-                            if(currentNumber > largest) {
+                            if(currentNumber > largest) {//9 > 8
                                 largest = currentNumber;
                                 largestIndex = j;
                             }
@@ -29,7 +30,7 @@ public class Lobby {
                         if(j==largestIndex) continue;
                         char number = banksList.get(i).charAt(j);
                         int currentNumber = number - '0';
-                        if(currentNumber > secondLargest) {
+                        if(currentNumber > secondLargest && j > largestIndex) {
                             secondLargest = currentNumber;
                             secondLargestIndex = j;
                         }
@@ -40,8 +41,6 @@ public class Lobby {
                     } else {
                         largestJoltage = largest * 10 + secondLargest;
                     }
-
-                System.out.println(largestJoltage);
                 totalNumber += largestJoltage;
                 }
                 System.out.println(totalNumber);
